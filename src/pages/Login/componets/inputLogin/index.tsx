@@ -16,6 +16,7 @@ const InputLogin = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    console.log("oi");
   };
 
   const handlePasswordLook = () => {
