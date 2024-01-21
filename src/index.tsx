@@ -5,14 +5,17 @@ import ReactDOM from "react-dom/client";
 import { theme } from "./styles/theme";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/route";
+import { QueryClientProvider, queryClient } from "./utils/queryConfig";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
