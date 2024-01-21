@@ -7,7 +7,7 @@ const Header = () => {
       justifyContent={"space-around"}
       h={"80px"}
       w={"100%"}
-      bgColor={"gray.300"}
+      bgColor={"gray.200"}
     >
       <Box>
         <Image src={Logo} alt="logo" />

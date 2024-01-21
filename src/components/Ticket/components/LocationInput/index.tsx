@@ -11,12 +11,6 @@ const schema = yup.object().shape({
   searchQuery: yup.string().required("Search query is required"),
 });
 
-// ... (importações)
-
-// ... (importações)
-
-// ... (importações)
-
 const LocationInput: ILocationInput = ({ label, onSelect }) => {
   const {
     control,
@@ -34,7 +28,6 @@ const LocationInput: ILocationInput = ({ label, onSelect }) => {
   };
 
   const handleCountrySelect = (location: ICountryLocation) => {
-    // Atualiza o valor do campo de pesquisa e aciona a mutação
     handleSearchChange(
       `${location.name.common}, ${location.capital}, ${location.region}`
     );
