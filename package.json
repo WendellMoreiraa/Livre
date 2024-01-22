@@ -66,13 +66,6 @@
     ]
   },
   "devDependencies": {
-    "@types/hoist-non-react-statics": "^3.3.5",
-    "@types/jsonwebtoken": "^9.0.5",
-    "@types/jsonwebtoken-promisified": "^1.0.4",
     "@types/react-router-dom": "^5.3.3"
-  },
-  "browser": {
-    "crypto": false,
-    "stream": false
   }
 }
