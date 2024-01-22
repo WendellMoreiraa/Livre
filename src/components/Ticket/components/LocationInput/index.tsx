@@ -49,7 +49,7 @@ const LocationInput: ILocationInput = ({ label, onSelect }) => {
           <Controller
             name="searchQuery"
             control={control}
-            defaultValue=""
+            defaultValue={""}
             render={({ field }) => (
               <Input
                 type="text"
@@ -58,9 +58,10 @@ const LocationInput: ILocationInput = ({ label, onSelect }) => {
                 onBlur={() => handleSearchChange(field.value)}
                 bgColor={"gray.400"}
                 border={"1px solid #D0D5DD"}
-                placeholder="Search for a region, subregion, country, or capital"
+                placeholder="Porto Alegre, RS"
+                _placeholder={{ color: "#666666" }}
                 fontSize={"16px"}
-                color={"gray.600"}
+                color={"black"}
                 w={"260px"}
               />
             )}

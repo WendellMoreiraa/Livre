@@ -3,37 +3,34 @@ import { Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Navigate } from "react-router-dom"; // Importe Redirect e Route
+
 import { IFormInput } from "./types";
 import { shemasLogin } from "../../../../shemas";
 
+import { useNavigate } from "react-router-dom";
+import AuthProvider from "src/utils/auth/authService";
+
 const InputLogin = () => {
   const [isInputOpen, setIsInputOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const { login } = AuthProvider();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(shemasLogin) });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    // Simula a autenticação bem-sucedida
-    if (data.email === "usuario@exemplo.com" && data.password === "senha123") {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    if (login(data.email, data.password)) {
+      navigate("/");
     }
   };
 
   const handlePasswordLook = () => {
     setIsInputOpen(!isInputOpen);
   };
-
-  if (isAuthenticated) {
-    // Use o componente Redirect para redirecionar para a rota desejada
-    return <Navigate to="/" />;
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -3,9 +3,11 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 
 import { theme } from "./styles/theme";
-import { RouterProvider } from "react-router-dom";
-import router from "./routes/route";
+
 import { QueryClientProvider, queryClient } from "./utils/queryConfig";
+
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/routes";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -1,29 +1,63 @@
-import React, { useState } from "react";
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
+import { Box, Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
 
+import { SearchIcon } from "@chakra-ui/icons";
 import LocationInput from "./components/LocationInput";
+import Tickets from "./components/Tickets";
 
 const Ticket = () => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const boxRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSearch = async () => {
-    console.log("Pesquisando:", {
-      origin,
-      destination,
-      departureDate,
-      returnDate,
-    });
+  const searchData = {
+    origin,
+    destination,
+    departureDate,
+    returnDate,
   };
+  const handleSearch = () => {
+    console.log(searchData);
+    setIsOpen(true);
+  };
+  const handleClickOutside = (event: React.MouseEvent | MouseEvent) => {
+    if (
+      boxRef.current &&
+      "contains" in boxRef.current &&
+      boxRef.current.contains(event.target as HTMLElement)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <Flex direction={"column"} align={"center"} gap={"24px"}>
+    <Flex
+      direction={"column"}
+      align={"center"}
+      gap={"24px"}
+      position={"relative"}
+    >
       <Text alignSelf={"flex-start"} fontSize={"32px"} fontWeight={600}>
         Pesquise a sua viagem
       </Text>
 
       <Box
+        ref={boxRef}
         w={"1180px"}
         bgColor={"gray.200"}
         h={"240px"}
@@ -105,14 +139,61 @@ const Ticket = () => {
           </Flex>
           <Button
             onClick={handleSearch}
-            colorScheme="teal"
+            width={"118px"}
+            h={"48px"}
+            fontWeight={"500"}
+            fontSize={"14px"}
             marginBottom={"8px"}
             alignSelf={"flex-end"}
           >
-            Search
+            Buscar <Icon ml={"10px"} as={SearchIcon} />
           </Button>
         </Flex>
       </Box>
+      {isOpen && (
+        <Flex
+          w={"1200px"}
+          h={"500px"}
+          bgColor={"gray.200"}
+          position={"absolute"}
+          padding={"0 30px"}
+          zIndex={"1000"}
+          bottom={"-440px"}
+          direction={"column"}
+          overflowY={"scroll"}
+          gap={8}
+          boxShadow={"md"}
+          borderRadius={"8px"}
+        >
+          <Text fontSize="24px" fontWeight="bold" mb="4px" mt={"15px"}>
+            Resultados da Pesquisa:
+          </Text>
+          <Tickets
+            data={searchData}
+            price={300}
+            hourboarding={"5:00"}
+            hourDisembarkation={"12:00"}
+          />
+          <Tickets
+            data={searchData}
+            price={3000}
+            hourboarding={"6:00"}
+            hourDisembarkation={"13:00"}
+          />
+          <Tickets
+            data={searchData}
+            price={100}
+            hourboarding={"9:00"}
+            hourDisembarkation={"18:00"}
+          />
+          <Tickets
+            data={searchData}
+            price={1000}
+            hourboarding={"4:00"}
+            hourDisembarkation={"11:00"}
+          />
+        </Flex>
+      )}
     </Flex>
   );
 };
