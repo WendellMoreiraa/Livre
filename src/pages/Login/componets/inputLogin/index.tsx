@@ -12,7 +12,7 @@ import AuthProvider from "src/utils/auth/authService";
 
 const InputLogin = () => {
   const [isInputOpen, setIsInputOpen] = useState(false);
-
+  const [loginError, setLoginError] = useState("");
   const { login } = AuthProvider();
   const {
     register,
@@ -23,11 +23,22 @@ const InputLogin = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (login(data.email, data.password)) {
-      navigate("/");
+    try {
+      if (login(data.email, data.password)) {
+        navigate("/");
+      } else {
+        setLoginError(
+          "E-mail ou senha incorretos. Verifique e tente novamente."
+        );
+      }
+    } catch (error) {
+      console.error("Erro durante o login:", error);
+
+      setLoginError(
+        "Ocorreu um erro durante o login. Tente novamente mais tarde."
+      );
     }
   };
-
   const handlePasswordLook = () => {
     setIsInputOpen(!isInputOpen);
   };
@@ -75,6 +86,11 @@ const InputLogin = () => {
             </Text>
           )}
         </Flex>
+        {loginError && (
+          <Text color="red" fontSize="12px">
+            {loginError}
+          </Text>
+        )}
         <Button type="submit" width={"100%"} height={"48px"}>
           Entrar
         </Button>
