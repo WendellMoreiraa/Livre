@@ -7,11 +7,12 @@ const ToTravel = () => {
     <Flex
       w={"100%"}
       h={"628px"}
-      bgImage={BgAero}
+      bgImage={{ base: "", lg: BgAero }}
       bgSize={"cover"}
       bgPosition={"center"}
       justifyContent={"center"}
-      alignItems={"flex-end"}
+      bgColor={{ base: "primary.100" }}
+      alignItems={{ base: "center", md: "flex-end" }}
     >
       <Ticket />
     </Flex>

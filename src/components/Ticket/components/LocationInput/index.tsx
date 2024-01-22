@@ -1,6 +1,6 @@
 // LocationInput.tsx
 import React from "react";
-import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Input, Text, useColorMode } from "@chakra-ui/react";
 import { ICountryLocation, ILocationInput } from "./types";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,11 +33,12 @@ const LocationInput: ILocationInput = ({ label, onSelect }) => {
     );
     onSelect(location.name.common);
   };
+  const { colorMode } = useColorMode();
 
   return (
     <Flex direction={"column"}>
       <Text
-        color={"primary.200"}
+        color={colorMode === "light" ? "primary.200" : "gray.200"}
         fontSize={"14px"}
         fontWeight={"600"}
         marginBottom={"6px"}

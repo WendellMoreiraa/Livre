@@ -1,18 +1,28 @@
 import { EmailIcon, InfoIcon, PhoneIcon } from "@chakra-ui/icons";
 import Logo from "../../../../assets/img/logo.svg";
-import { Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Flex, Icon, Image, Text, useColorMode } from "@chakra-ui/react";
 
 const Footer = () => {
+  const { colorMode } = useColorMode();
   return (
     <Flex
-      bgColor={"gray.400"}
+      bgColor={colorMode === "light" ? "gray.400" : "gray.800"}
       width={"100%"}
       h={"437px"}
       mt={"20px"}
       alignItems={"center"}
       justifyContent={"space-evenly"}
+      direction={{ base: "column", sm: "column", md: "row" }}
+      borderTop={{ base: "1px solid #FFFFFF", md: "none" }}
+      marginTop={{ base: "60px", md: "0px" }}
     >
-      <Flex direction={"column"} justifyContent={"center"} gap={3}>
+      <Flex
+        direction={{ sm: "row", md: "column" }}
+        justifyContent={"center"}
+        textAlign={{ base: "center" }}
+        gap={3}
+        display={{ base: "none", md: "flex" }}
+      >
         <Text fontSize={"24px"} color={"primary.100"} fontWeight={"bold"}>
           Contatos
         </Text>

@@ -1,11 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
 import LocationInput from "./components/LocationInput";
 import Tickets from "./components/Tickets";
 
 const Ticket = () => {
+  const { colorMode } = useColorMode();
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -52,26 +61,37 @@ const Ticket = () => {
       gap={"24px"}
       position={"relative"}
     >
-      <Text alignSelf={"flex-start"} fontSize={"32px"} fontWeight={600}>
+      <Text
+        alignSelf={{ base: "center", md: "flex-start" }}
+        fontSize={{ base: "26px", md: "32px" }}
+        fontWeight={600}
+        color={colorMode === "light" ? "gray.800" : "black"}
+      >
         Pesquise a sua viagem
       </Text>
 
       <Box
         ref={boxRef}
-        w={"1180px"}
-        bgColor={"gray.200"}
-        h={"240px"}
-        rounded={16}
-        marginBottom={"80px"}
+        w={{ base: "100%", sm: "100%", md: "70%", lg: "100%" }}
+        bgColor={colorMode === "light" ? "gray.200" : "gray.800"}
+        h={{ base: "100%", md: "240px" }}
+        rounded={{ md: "16px" }}
+        marginBottom={{ base: "20px", md: "80px" }}
         padding={"10px"}
       >
         <Flex
           direction={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          h={"100%"}
+          h={{ md: "100%", lg: "240px" }}
         >
-          <Flex justifyContent={"center"} h={"100%"} align={"center"} gap={6}>
+          <Flex
+            justifyContent={"center"}
+            h={"100%"}
+            align={"center"}
+            gap={6}
+            wrap={"wrap"}
+          >
             <Flex direction="column">
               <Flex>
                 <Box>
@@ -94,7 +114,7 @@ const Ticket = () => {
             </Flex>
             <Flex direction={"column"}>
               <Text
-                color={"primary.200"}
+                color={colorMode === "light" ? "primary.200" : "gray.200"}
                 fontSize={"14px"}
                 fontWeight={"600"}
                 marginBottom={"6px"}
@@ -116,7 +136,7 @@ const Ticket = () => {
             </Flex>
             <Flex direction={"column"}>
               <Text
-                color={"primary.200"}
+                color={colorMode === "light" ? "primary.200" : "gray.200"}
                 fontSize={"14px"}
                 fontWeight={"600"}
                 marginBottom={"6px"}
@@ -139,12 +159,13 @@ const Ticket = () => {
           </Flex>
           <Button
             onClick={handleSearch}
-            width={"118px"}
+            width={{ b: "100px", md: "118px" }}
             h={"48px"}
             fontWeight={"500"}
             fontSize={"14px"}
-            marginBottom={"8px"}
-            alignSelf={"flex-end"}
+            mt={{ base: "10px", md: 0 }}
+            marginBottom={{ base: 0, md: "20px" }}
+            alignSelf={{ base: "center", md: "flex-end" }}
           >
             Buscar <Icon ml={"10px"} as={SearchIcon} />
           </Button>
@@ -152,18 +173,18 @@ const Ticket = () => {
       </Box>
       {isOpen && (
         <Flex
-          w={"1200px"}
-          h={"500px"}
-          bgColor={"gray.200"}
+          w={"100%"}
+          h={{ sm: "400px", md: "500px" }}
+          bgColor={colorMode === "light" ? "gray.200" : "gray.800"}
           position={"absolute"}
           padding={"0 30px"}
           zIndex={"1000"}
-          bottom={"-440px"}
+          bottom={{ sm: "-396px", md: "-440px" }}
           direction={"column"}
           overflowY={"scroll"}
           gap={8}
           boxShadow={"md"}
-          borderRadius={"8px"}
+          borderRadius={{ sm: "0", md: "8px" }}
         >
           <Text fontSize="24px" fontWeight="bold" mb="4px" mt={"15px"}>
             Resultados da Pesquisa:

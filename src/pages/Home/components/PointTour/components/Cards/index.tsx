@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -7,10 +6,13 @@ import {
   Image,
   Stack,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { ICard } from "./types";
+import BuySucess from "src/components/BuySucess";
 
 const Cards: ICard = ({ img, name, description, ticketPrice }) => {
+  const { colorMode } = useColorMode();
   return (
     <Card boxShadow="md" mt={"15px"} bgColor={"gray.200"}>
       <CardBody w={"368px"} h={"144"} cursor={"pointer"}>
@@ -18,12 +20,16 @@ const Cards: ICard = ({ img, name, description, ticketPrice }) => {
           src={img}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
-          w={"328px"}
+          w={{ base: "280px", sm: "328px" }}
           h={"200px"}
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">{name}</Heading>
-          <Text>{description}</Text>
+          <Heading size="md" color={colorMode === "dark" ? "gray.800" : ""}>
+            {name}
+          </Heading>
+          <Text color={colorMode === "dark" ? "gray.800" : ""}>
+            {description}
+          </Text>
           <Text color="blue.600" fontSize="2xl">
             ${ticketPrice}
           </Text>
@@ -31,9 +37,7 @@ const Cards: ICard = ({ img, name, description, ticketPrice }) => {
       </CardBody>
 
       <CardFooter>
-        <Button variant="solid" colorScheme="blue">
-          Buy now
-        </Button>
+        <BuySucess price={3000} />
       </CardFooter>
     </Card>
   );

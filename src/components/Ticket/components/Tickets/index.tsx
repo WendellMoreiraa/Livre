@@ -1,8 +1,9 @@
 // Tickets.tsx
 
-import { Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import { Itickets } from "./types";
 import { ArrowRightIcon } from "@chakra-ui/icons";
+import BuySucess from "src/components/BuySucess";
 
 const Tickets: Itickets = ({
   data,
@@ -69,7 +70,8 @@ const Tickets: Itickets = ({
               <Text fontSize={"12px"}>Desembarque</Text>
             </Flex>
           </Flex>
-          <Button>$ {price}</Button>
+
+          <BuySucess price={price} />
         </Flex>
       </Flex>
     </Flex>
